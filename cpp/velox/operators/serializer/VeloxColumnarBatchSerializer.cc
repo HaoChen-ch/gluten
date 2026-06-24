@@ -25,6 +25,7 @@
 
 #include "memory/ArrowMemory.h"
 #include "memory/VeloxColumnarBatch.h"
+#include "velox/common/compression/Compression.h"
 #include "velox/common/memory/Memory.h"
 #include "velox/vector/FlatVector.h"
 #include "velox/vector/arrow/Bridge.h"
@@ -48,7 +49,8 @@ std::unique_ptr<ByteInputStream> toByteStream(uint8_t* data, int32_t size) {
 VeloxColumnarBatchSerializer::VeloxColumnarBatchSerializer(
     arrow::MemoryPool* arrowPool,
     std::shared_ptr<memory::MemoryPool> veloxPool,
-    struct ArrowSchema* cSchema)
+    struct ArrowSchema* cSchema,
+    const std::string& compressionKind)
     : ColumnarBatchSerializer(arrowPool), veloxPool_(std::move(veloxPool)) {
   // serializeColumnarBatches don't need rowType_
   if (cSchema != nullptr) {
@@ -58,6 +60,7 @@ VeloxColumnarBatchSerializer::VeloxColumnarBatchSerializer(
   arena_ = std::make_unique<StreamArena>(veloxPool_.get());
   serde_ = std::make_unique<serializer::presto::PrestoVectorSerde>();
   options_.useLosslessTimestamp = true;
+  options_.compressionKind = facebook::velox::common::stringToCompressionKind(compressionKind);
 }
 
 void VeloxColumnarBatchSerializer::append(const std::shared_ptr<ColumnarBatch>& batch) {
