@@ -637,7 +637,7 @@ object VeloxConfig extends ConfigRegistry {
       .doc("which compression for the columnar batch serializer (e.g. broadcast).")
       .stringConf
       .transform(_.toLowerCase(Locale.ROOT))
-      .checkValues(Set("none", "zstd", "zlib", "snappy", "zstd", "lz4", "gzip"))
+      .checkValues(Set("none", "zstd", "zlib", "snappy", "lz4", "gzip"))
       .createWithDefault("zstd")
 
   val VELOX_HASHMAP_ABANDON_BUILD_DUPHASH_MIN_ROWS =
