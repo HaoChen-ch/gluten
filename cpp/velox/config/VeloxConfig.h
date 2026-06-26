@@ -54,7 +54,7 @@ const std::string kSpillCompressionKind = "spark.gluten.sql.columnar.backend.vel
 // Which compression kind to use for the columnar batch serializer (e.g. broadcast).
 const std::string kColumnarBatchSerializerCompression =
     "spark.gluten.sql.columnar.backend.velox.columnarBatchSerializerCompression";
-const std::string kColumnarBatchSerializerCompressionDefault = "zstd";
+const std::string kColumnarBatchSerializerCompressionDefault = "none";
 const std::string kMaxPartialAggregationMemoryRatio =
     "spark.gluten.sql.columnar.backend.velox.maxPartialAggregationMemoryRatio";
 const std::string kMaxPartialAggregationMemory = "spark.gluten.sql.columnar.backend.velox.maxPartialAggregationMemory";

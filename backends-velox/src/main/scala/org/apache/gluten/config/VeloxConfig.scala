@@ -638,7 +638,7 @@ object VeloxConfig extends ConfigRegistry {
       .stringConf
       .transform(_.toLowerCase(Locale.ROOT))
       .checkValues(Set("none", "zstd", "zlib", "snappy", "lz4", "gzip"))
-      .createWithDefault("zstd")
+      .createWithDefault("none")
 
   val VELOX_HASHMAP_ABANDON_BUILD_DUPHASH_MIN_ROWS =
     buildConf("spark.gluten.velox.abandonDedupHashMap.minRows")
