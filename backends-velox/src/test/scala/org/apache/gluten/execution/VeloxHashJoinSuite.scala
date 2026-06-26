@@ -447,7 +447,7 @@ class VeloxHashJoinSuite extends VeloxWholeStageTransformerSuite {
   }
 
   test("test columnarBatchSerializerCompression") {
-    Seq("none", "zstd", "zlib", "snappy", "zstd", "lz4", "gzip").foreach(
+    Seq("none", "zstd", "zlib", "snappy", "lz4", "gzip").foreach(
       compression =>
         withSQLConf(
           GlutenConfig.GLUTEN_COLUMNAR_TO_ROW_MEM_THRESHOLD.key -> "16",
