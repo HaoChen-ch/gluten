@@ -26,6 +26,7 @@
 #include "jni/JniCommon.h"
 #include "jni/JniError.h"
 #include "jni/JniWrapper.h"
+#include "jni/TaskContextJniWrapper.h"
 
 #include "memory/ColumnarBatch.h"
 #ifdef GLUTEN_ENABLE_BOLT
@@ -491,9 +492,9 @@ JNIEXPORT void JNICALL Java_org_apache_gluten_memory_NativeMemoryManagerJniWrapp
 
 #ifdef GLUTEN_ENABLE_BOLT
   if (gluten::BoltGlutenMemoryManager::enabled()) {
-    auto memoryManagerName = jStringToCString(env, jName);
+    const auto taskAttemptId = gluten::getCurrentSparkTaskAttemptId();
     auto holder = gluten::BoltGlutenMemoryManager::getMemoryManagerHolder(
-        memoryManagerName, taskAttemptId, reinterpret_cast<int64_t>(memoryManager));
+        "", taskAttemptId, reinterpret_cast<int64_t>(memoryManager));
     holder->hold();
   }
 #endif
@@ -511,6 +512,7 @@ JNIEXPORT void JNICALL Java_org_apache_gluten_memory_NativeMemoryManagerJniWrapp
 
 #ifdef GLUTEN_ENABLE_BOLT
   if (gluten::BoltGlutenMemoryManager::enabled()) {
+    const auto taskAttemptId = gluten::getCurrentSparkTaskAttemptId();
     gluten::BoltGlutenMemoryManager::destroy(taskAttemptId, nmmHandle);
   }
 #endif
