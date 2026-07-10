@@ -673,7 +673,8 @@ class BoltSparkPlanExecApi extends SparkPlanExecApi {
             classOf[SQLMetric],
             classOf[SQLMetric],
             classOf[SQLMetric],
-            classOf[SQLMetric])
+            classOf[SQLMetric]
+          )
         constructor
           .newInstance(
             schema,
@@ -685,7 +686,8 @@ class BoltSparkPlanExecApi extends SparkPlanExecApi {
             deserializerDestroyTime,
             mergeTime,
             totalReadTime,
-            shuffleWallTime)
+            shuffleWallTime
+          )
           .asInstanceOf[Serializer]
       case _ =>
         new ColumnarBatchSerializer(
@@ -698,7 +700,8 @@ class BoltSparkPlanExecApi extends SparkPlanExecApi {
           deserializerDestroyTime,
           mergeTime,
           totalReadTime,
-          shuffleWallTime)
+          shuffleWallTime
+        )
     }
   }
 
